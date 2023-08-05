@@ -99,7 +99,7 @@ if (isset($_POST['sub'])) {
 
                                     <p>
                                         <span style="color: rgba(180, 180, 180, 0.7)">Trade Win Rate</span> <br>
-                                        <b><?php echo $data['win_rate'] ?> 0f 100</b>
+                                        <b><?php echo $data['win_rate'] ?> 0f 100%</b>
 
                                     </p>
 

@@ -34,8 +34,8 @@ if (isset($_GET['mid']) && $_GET['mid'] != '') {
 
                                             <input type="hidden" name="pname" value="<?php echo $row['plane']; ?>">
                                             <h3 class="mb-4"><?php echo $row['plan'] ?></h3>
-                                            <h4>Amount - <?php echo $row['amount'] ?>%</h4>
-                                            <p><i class="pe-7s-play"></i> Win RAte - <b>$<?php echo $row['win_rate']; ?></b></p>
+                                            <h4>Amount - $<?php echo $row['amount'] ?></h4>
+                                            <p><i class="pe-7s-play"></i> Win RAte - <b><?php echo $row['win_rate']; ?>%</b></p>
 
                                             <p><i class="pe-7s-play"></i> Duration - <?php echo $row['duration']; ?> </p>
 

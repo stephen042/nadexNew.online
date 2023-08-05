@@ -115,7 +115,7 @@ if (isset($_POST['package11'])) {
 
             <div class="form-group">
                 <label> Package Duration (Days) E.g 3 days</label>
-                <input type="text" name="duration" placeholder="Package Duration" value="<?php if(isset($duration)){echo $duration;} ?>" class="form-control">
+                <input type="text" name="duration" placeholder="# days or 5 days" value="<?php if(isset($duration)){echo $duration;} ?>" class="form-control">
             </div>
 
             <br>
