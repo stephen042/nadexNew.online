@@ -1,10 +1,10 @@
-<?php  
+<?php
 include 'session.php';
 
 if (isset($_GET['switch'])) {
     if ($account_type == 'live') {
         $sw = 'demo';
-    }else{
+    } else {
         $sw = 'live';
     }
     $switch = mysqli_query($link, "UPDATE users SET account_type = '$sw' WHERE email = '$email' ");
@@ -30,11 +30,10 @@ if (isset($_GET['switch'])) {
     <!-- endinject -->
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="vendors/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
+
 
     <!-- End plugin css for this page -->
     <!-- inject:css -->
@@ -56,6 +55,25 @@ if (isset($_GET['switch'])) {
             font-size: 12px !important;
         }
     </style>
+    <!-- Smartsupp Live Chat script -->
+    <script type="text/javascript">
+        var _smartsupp = _smartsupp || {};
+        _smartsupp.key = '5211ff884b70b768b71c593f3556fdd0a59b4a30';
+        window.smartsupp || (function(d) {
+            var s, c, o = smartsupp = function() {
+                o._.push(arguments)
+            };
+            o._ = [];
+            s = d.getElementsByTagName('script')[0];
+            c = d.createElement('script');
+            c.type = 'text/javascript';
+            c.charset = 'utf-8';
+            c.async = true;
+            c.src = 'https://www.smartsuppchat.com/loader.js?';
+            s.parentNode.insertBefore(c, s);
+        })(document);
+    </script>
+    <noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
 
 
 </head>
@@ -65,14 +83,12 @@ if (isset($_GET['switch'])) {
 
 
     <!-- Modal -->
-    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" style="color: rgba(255, 255, 255, 0.805)"
-        aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" style="color: rgba(255, 255, 255, 0.805)" aria-labelledby="notificationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
-                    <button type="button" class="close btn-sm btn btn-danger text-white" id="modalHide"
-                        data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close btn-sm btn btn-danger text-white" id="modalHide" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="fa fa-times"></span>
                     </button>
                 </div>
@@ -89,14 +105,12 @@ if (isset($_GET['switch'])) {
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel"
-        style="color: rgba(255, 255, 255, 0.805)" aria-hidden="true">
+    <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" style="color: rgba(255, 255, 255, 0.805)" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="activityModalLabel">Activities</h5>
-                    <button type="button" class="close btn-sm btn btn-danger text-white" id="activityModalHide"
-                        data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close btn-sm btn btn-danger text-white" id="activityModalHide" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="fa fa-times"></span>
                     </button>
                 </div>
@@ -128,12 +142,9 @@ if (isset($_GET['switch'])) {
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="navbar-brand-wrapper d-flex justify-content-center">
                 <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
-                    <a class="navbar-brand brand-logo" href="index.php"><img
-                            src="../images/ndx_primary_logo_color%402x.png" alt="logo" /></a>
-                    <a class="navbar-brand brand-logo-mini" href="index.php"><img
-                            src="../images/ndx_small_logo_color.png" alt="logo" /></a>
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
-                        data-toggle="minimize">
+                    <a class="navbar-brand brand-logo" href="index.php"><img src="../images/ndx_primary_logo_color%402x.png" alt="logo" /></a>
+                    <a class="navbar-brand brand-logo-mini" href="index.php"><img src="../images/ndx_small_logo_color.png" alt="logo" /></a>
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                         <span class="fa fa-sort"></span>
                     </button>
                 </div>
@@ -141,115 +152,106 @@ if (isset($_GET['switch'])) {
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 
                 <ul class="navbar-nav navbar-nav-right">
-                    <?php  
-                            if ($account_type == 'live') { 
-                        ?>
-                    <li class="nav-item dropdown me-3">
-                        <button class="btn btn-sm" data-toggle="dropdown" id="balanceDropdown"
-                            aria-haspopup="true" aria-expanded="false"
-                            style="font-weight: bold; font-size: 15px; background-color: rgba(35, 67, 67, 0.716); color:rgba(255, 255, 255, 0.827);">
-                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            $<?php echo number_format($balance,2) ?>
-                        </button>
+                    <?php
+                    if ($account_type == 'live') {
+                    ?>
+                        <li class="nav-item dropdown me-3">
+                            <button class="btn btn-sm" data-toggle="dropdown" id="balanceDropdown" aria-haspopup="true" aria-expanded="false" style="font-weight: bold; font-size: 15px; background-color: rgba(35, 67, 67, 0.716); color:rgba(255, 255, 255, 0.827);">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                $<?php echo number_format($balance, 2) ?>
+                            </button>
 
-                        
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown p-3"
-                            aria-labelledby="balanceDropdown" style="background-color: rgba(230, 230, 230, 0.987);">
-                            
-                            <div class="mb-3 p-3" style="border-left: solid 5px rgb(35, 60, 115);">
-                                <div>Main Balance</div>
-                                <div style="font-size: 21px; margin-top: -10px;">
-                                    $<?php echo number_format($balance,2) ?></div>
-                            </div>
 
-                            <div class="mb-1">
-                                <div>Demo Balance</div>
-                                <div style="font-size: 20px; margin-top: -10px;">
-                                    $<?php echo number_format($demo_balance,2) ?></div>
-                                <div style="font-size: 13px; margin-top: -5px;">
-                                    <a href="?switch" style="text-decoration: none;">Switch to
-                                        demo</a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown p-3" aria-labelledby="balanceDropdown" style="background-color: rgba(230, 230, 230, 0.987);">
+
+                                <div class="mb-3 p-3" style="border-left: solid 5px rgb(35, 60, 115);">
+                                    <div>Main Balance</div>
+                                    <div style="font-size: 21px; margin-top: -10px;">
+                                        $<?php echo number_format($balance, 2) ?></div>
                                 </div>
-                            </div>
-                            <div class="mb-1 mt-3 p-3 text-white" style="background-color: rgb(18, 53, 81);">
-                                <div style="font-size: 12px">Active Stakings</div>
-                                <div style="font-size: 16px; margin-top: -5px;">
-                                    $0.00
-                                </div>
-                                <div class="text-success" style="font-size: 13px; margin-top: -5px;">
-                                    Profit:
-                                    +$0
-                                    (<i class="fa fa-angle-up"></i>0%)
 
-                                </div>
-                            </div>
-
-                        </div>
-                    
-                    </li>
-                    <?php } ?>
-                    <?php 
-                        if ($account_type == 'demo') {
-                     ?>
-                     <li class="nav-item dropdown me-3">
-                        <button class="btn btn-sm" data-toggle="dropdown" id="balanceDropdown"
-                            aria-haspopup="true" aria-expanded="false"
-                            style="font-weight: bold; font-size: 15px; background-color: rgba(35, 67, 67, 0.716); color:rgba(255, 255, 255, 0.827);">
-                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                                    Demo: $<?php echo number_format($demo_balance,2) ?>
-                                                    </button>
-
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown p-3"
-                            aria-labelledby="balanceDropdown" style="background-color: rgba(230, 230, 230, 0.987);">
-                                                            <div class="mb-3 p-3" style="border-left: solid 5px rgb(35, 60, 115);">
+                                <div class="mb-1">
                                     <div>Demo Balance</div>
                                     <div style="font-size: 20px; margin-top: -10px;">
-                                        $<?php echo number_format($demo_balance,2) ?></div>
+                                        $<?php echo number_format($demo_balance, 2) ?></div>
+                                    <div style="font-size: 13px; margin-top: -5px;">
+                                        <a href="?switch" style="text-decoration: none;">Switch to
+                                            demo</a>
+                                    </div>
                                 </div>
-                            
-                                                            <div class="mb-1">
+                                <div class="mb-1 mt-3 p-3 text-white" style="background-color: rgb(18, 53, 81);">
+                                    <div style="font-size: 12px">Active Stakings</div>
+                                    <div style="font-size: 16px; margin-top: -5px;">
+                                        $0.00
+                                    </div>
+                                    <div class="text-success" style="font-size: 13px; margin-top: -5px;">
+                                        Profit:
+                                        +$0
+                                        (<i class="fa fa-angle-up"></i>0%)
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </li>
+                    <?php } ?>
+                    <?php
+                    if ($account_type == 'demo') {
+                    ?>
+                        <li class="nav-item dropdown me-3">
+                            <button class="btn btn-sm" data-toggle="dropdown" id="balanceDropdown" aria-haspopup="true" aria-expanded="false" style="font-weight: bold; font-size: 15px; background-color: rgba(35, 67, 67, 0.716); color:rgba(255, 255, 255, 0.827);">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                Demo: $<?php echo number_format($demo_balance, 2) ?>
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown p-3" aria-labelledby="balanceDropdown" style="background-color: rgba(230, 230, 230, 0.987);">
+                                <div class="mb-3 p-3" style="border-left: solid 5px rgb(35, 60, 115);">
+                                    <div>Demo Balance</div>
+                                    <div style="font-size: 20px; margin-top: -10px;">
+                                        $<?php echo number_format($demo_balance, 2) ?></div>
+                                </div>
+
+                                <div class="mb-1">
                                     <div>Main Balance</div>
                                     <div style="font-size: 20px; margin-top: -10px;">
-                                        $<?php echo number_format($balance,2) ?></div>
+                                        $<?php echo number_format($balance, 2) ?></div>
                                     <div style="font-size: 13px; margin-top: -5px;">
                                         <a href="?switch" style="text-decoration: none;">Switch to
                                             main</a>
                                     </div>
                                 </div>
-                                                        <div class="mb-1 mt-3 p-3 text-white" style="background-color: rgb(18, 53, 81);">
-                                <div style="font-size: 12px">Active Stakings</div>
-                                <div style="font-size: 16px; margin-top: -5px;">
-                                    $0.00
+                                <div class="mb-1 mt-3 p-3 text-white" style="background-color: rgb(18, 53, 81);">
+                                    <div style="font-size: 12px">Active Stakings</div>
+                                    <div style="font-size: 16px; margin-top: -5px;">
+                                        $0.00
+                                    </div>
+                                    <div class="text-success" style="font-size: 13px; margin-top: -5px;">
+                                        Profit:
+                                        +$0
+                                        (<i class="fa fa-angle-up"></i>0%)
+
+                                    </div>
                                 </div>
-                                <div class="text-success" style="font-size: 13px; margin-top: -5px;">
-                                    Profit:
-                                    +$0 
-                                                                            (<i class="fa fa-angle-up"></i>0%)
-                                                                        
-                                </div>
+
                             </div>
+                        </li>
 
-                        </div>
-                    </li>
-
-                 <?php } ?>
+                    <?php } ?>
 
                     <li class="nav-item nav-profile dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="images/userIcon2.png" alt="profile" />
                             <span class="nav-profile-name"><?php echo ucfirst($name) ?></span>
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
-                            aria-labelledby="profileDropdown">
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item" href="profile.php">
                                 <!-- <i class="mdi mdi-settings text-primary"></i> -->
                                 <i class="fa fa-cog text-primary"></i>
                                 profile
                             </a>
-                            <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown"
-                                id="notificationBtn">
+                            <a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown" id="notificationBtn">
                                 <!-- <i class="mdi mdi-bell-ring "></i> -->
                                 <i class="fa fa-bell text-primary"></i>
                                 Notifications
@@ -268,8 +270,7 @@ if (isset($_GET['switch'])) {
                         </div>
                     </li>
                 </ul>
-                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                    data-toggle="offcanvas">
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                     <span class="fa fa-bars"></span>
 
                 </button>

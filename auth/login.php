@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include '../config/db.php';
 include '../config/config.php';
@@ -7,65 +7,62 @@ include '../config/functions.php';
 $msg = "";
 $err = "";
 
-$email_err = $password_err= ""; 
-$email = $password= "";
-    
-    if (isset($_POST['login_action'])) {
-        
-         if (empty($_POST["email"])) {
-            $err = "Email is required";
-          } else {
-            $email = text_input($_POST["email"]);
-          }
-          
-          if (empty($_POST["password"])) {
-            $err = "Password is required";
-          } else {
-            $password = text_input($_POST["password"]);
-          }
+$email_err = $password_err = "";
+$email = $password = "";
 
-        if($email == "" || $password == ""){
-            $err = "Email or Password fields cannot be empty!";
-        }else{
-            $sql = mysqli_query($link, "SELECT * FROM users WHERE email = '$email' AND password = '$password'");
-            if(mysqli_num_rows($sql) > 0){
-                $data = mysqli_fetch_assoc($sql);
-                $email = $data['email'];
-                $fname = $data['fname'];
-                $lname = $data['lname'];
-                $id = $data['id'];
-                
-                if($data['2fa'] == 1){
-                    $code = "0123456789";
-                    $fa2_code = str_shuffle($code);
-                    $fa2_code = substr($fa2_code, 0, 6);
-                    $update = mysqli_query($link, "UPDATE users SET 2fa_code = '$fa2_code' WHERE email = '$email' ");
-                    if ($update) {
-                        $_SESSION['2fa_login'] = $email;
-                        $name = $fname." ".$lname;
-                        $subject = "Auth OTP";
-                        $body = "<h5>Login OTP</h5> <p>Hi ".$fname."</p> <p>A login attempt was made on your account. use the code below to complete sign in.</p> <h5> <strong>".$fa2_code."</strong> </h5> <p>Contact us as soon as possible if you didnt make this attempt.</p> <p>Thanks,</p> <p>".$sitename."</p> ";
-                        $send = sendMail($email, $name, $subject, $body);
-                        if ($send) {
-                            // echo "<script>window.location.href = '2fa.php' </script>";
-                        }
-                        echo "<script>window.location.href = '2fa.php' </script>";
-                    }
-                }else{
-                    $_SESSION['user_mail'] = $email;
-                    echo "<script>window.location.href = '../user/dashboard.php' </script>";
-                }
+if (isset($_POST['login_action'])) {
 
-                
-                
-            }else{
-                $err = "Invalid Email and Password";
-            }
-        }
+    if (empty($_POST["email"])) {
+        $err = "Email is required";
+    } else {
+        $email = text_input($_POST["email"]);
     }
 
+    if (empty($_POST["password"])) {
+        $err = "Password is required";
+    } else {
+        $password = text_input($_POST["password"]);
+    }
 
- ?>
+    if ($email == "" || $password == "") {
+        $err = "Email or Password fields cannot be empty!";
+    } else {
+        $sql = mysqli_query($link, "SELECT * FROM users WHERE email = '$email' AND password = '$password'");
+        if (mysqli_num_rows($sql) > 0) {
+            $data = mysqli_fetch_assoc($sql);
+            $email = $data['email'];
+            $fname = $data['fname'];
+            $lname = $data['lname'];
+            $id = $data['id'];
+
+            if ($data['2fa'] == 1) {
+                $code = "0123456789";
+                $fa2_code = str_shuffle($code);
+                $fa2_code = substr($fa2_code, 0, 6);
+                $update = mysqli_query($link, "UPDATE users SET 2fa_code = '$fa2_code' WHERE email = '$email' ");
+                if ($update) {
+                    $_SESSION['2fa_login'] = $email;
+                    $name = $fname . " " . $lname;
+                    $subject = "Auth OTP";
+                    $body = "<h5>Login OTP</h5> <p>Hi " . $fname . "</p> <p>A login attempt was made on your account. use the code below to complete sign in.</p> <h5> <strong>" . $fa2_code . "</strong> </h5> <p>Contact us as soon as possible if you didnt make this attempt.</p> <p>Thanks,</p> <p>" . $sitename . "</p> ";
+                    $send = sendMail($email, $name, $subject, $body);
+                    if ($send) {
+                        // echo "<script>window.location.href = '2fa.php' </script>";
+                    }
+                    echo "<script>window.location.href = '2fa.php' </script>";
+                }
+            } else {
+                $_SESSION['user_mail'] = $email;
+                echo "<script>window.location.href = '../user/dashboard.php' </script>";
+            }
+        } else {
+            $err = "Invalid Email and Password";
+        }
+    }
+}
+
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -74,8 +71,10 @@ $email = $password= "";
 <!-- Mirrored from www.indonez.com/html-demo/Cirro/signin.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Aug 2022 18:41:08 GMT -->
 <!-- Added by HTTrack -->
 <!-- Mirrored from astromineoptions.com/login by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Dec 2022 00:21:06 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
     <!-- Meta tags -->
     <meta charset="utf-8">
@@ -98,6 +97,25 @@ $email = $password= "";
     <link rel="stylesheet" href="user/dash/css/user-custom.css">
     <script src="user/dash/notiflix-aio-3.2.5.min.js"></script>
     <script src="user/js/jquery-3.2.1.min.js"></script>
+    <!-- Smartsupp Live Chat script -->
+    <script type="text/javascript">
+        var _smartsupp = _smartsupp || {};
+        _smartsupp.key = '5211ff884b70b768b71c593f3556fdd0a59b4a30';
+        window.smartsupp || (function(d) {
+            var s, c, o = smartsupp = function() {
+                o._.push(arguments)
+            };
+            o._ = [];
+            s = d.getElementsByTagName('script')[0];
+            c = d.createElement('script');
+            c.type = 'text/javascript';
+            c.charset = 'utf-8';
+            c.async = true;
+            c.src = 'https://www.smartsuppchat.com/loader.js?';
+            s.parentNode.insertBefore(c, s);
+        })(document);
+    </script>
+    <noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
 </head>
 
 <body>
@@ -123,16 +141,16 @@ $email = $password= "";
                                     </a>
                                     <p class="lead mt-1 mb-3">Log into your account</p>
                                     <!-- login form begin -->
-                                    <?php  
-if ($msg != "") {
-	echo userAlert("success", $msg);
-	echo pageRedirect("3", "login.php");
-}
+                                    <?php
+                                    if ($msg != "") {
+                                        echo userAlert("success", $msg);
+                                        echo pageRedirect("3", "login.php");
+                                    }
 
-if ($err != "") {
-	echo userAlert("error", $err);
-}
-?>
+                                    if ($err != "") {
+                                        echo userAlert("error", $err);
+                                    }
+                                    ?>
                                     <form class="mb-2" method="POST" action="login.php">
                                         <div class="row g-1">
                                             <div class="col-12">
@@ -175,8 +193,8 @@ if ($err != "") {
         <!-- section content end -->
     </main>
 
-    
-    
+
+
     <!-- javascript -->
     <script src="../js/vendors/bootstrap.min.js"></script>
     <script src="../js/utilities.min.js"></script>
@@ -187,4 +205,5 @@ if ($err != "") {
 <!-- Mirrored from www.indonez.com/html-demo/Cirro/signin.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Aug 2022 18:41:08 GMT -->
 
 <!-- Mirrored from astromineoptions.com/login by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Dec 2022 00:21:07 GMT -->
+
 </html>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include '../config/db.php';
 include '../config/config.php';
@@ -7,41 +7,41 @@ include '../config/functions.php';
 $msg = "";
 $err = "";
 
-$email_err = $password_err= ""; 
-$email = $password= "";
-    
-    if (isset($_POST['login_action'])) {
-        
-         if (empty($_POST["email"])) {
-            $err = "Email is required";
-          } else {
-            $email = text_input($_POST["email"]);
-          }
+$email_err = $password_err = "";
+$email = $password = "";
 
-        if($email == "" ){
-            $err = "Provide your email address";
-        }else{
-            $mail = text_input($_POST['email']);
-            $s = mysqli_query($link, "SELECT * FROM users WHERE email = '$mail' ");
-            if (mysqli_num_rows($s) > 0) {
-                $row = mysqli_fetch_assoc($s);
-                $pass = $row['password'];
-                $name = $row['fname']." ".$row['lname'];
-                $umail = $row['email'];
-                $body = "<h4>Dear ".$name." </h4> <p>We're sorry to hear that you've forgotten your password. We understand how important it is to keep your account secure, so we`ve helped you retrieve your password</p> <h4>Below are your account credentials</h4>  <p> Your Email Address is <b>".$umail."</b></p> <p> Your password is <b>".$pass."</b></p> ";
-                $subject = "Forgotten Password";
+if (isset($_POST['login_action'])) {
 
-                // sendMail($umail, $name, $subject, $body);
-
-                $msg = "Check your mail for further instructions";
-            }else{
-                $err =  "Email account could not be found";
-            }
-        }
+    if (empty($_POST["email"])) {
+        $err = "Email is required";
+    } else {
+        $email = text_input($_POST["email"]);
     }
 
+    if ($email == "") {
+        $err = "Provide your email address";
+    } else {
+        $mail = text_input($_POST['email']);
+        $s = mysqli_query($link, "SELECT * FROM users WHERE email = '$mail' ");
+        if (mysqli_num_rows($s) > 0) {
+            $row = mysqli_fetch_assoc($s);
+            $pass = $row['password'];
+            $name = $row['fname'] . " " . $row['lname'];
+            $umail = $row['email'];
+            $body = "<h4>Dear " . $name . " </h4> <p>We're sorry to hear that you've forgotten your password. We understand how important it is to keep your account secure, so we`ve helped you retrieve your password</p> <h4>Below are your account credentials</h4>  <p> Your Email Address is <b>" . $umail . "</b></p> <p> Your password is <b>" . $pass . "</b></p> ";
+            $subject = "Forgotten Password";
 
- ?>
+            // sendMail($umail, $name, $subject, $body);
+
+            $msg = "Check your mail for further instructions";
+        } else {
+            $err =  "Email account could not be found";
+        }
+    }
+}
+
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -50,8 +50,10 @@ $email = $password= "";
 <!-- Mirrored from www.indonez.com/html-demo/Cirro/signin.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Aug 2022 18:41:08 GMT -->
 <!-- Added by HTTrack -->
 <!-- Mirrored from astromineoptions.com/login by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Dec 2022 00:21:06 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
     <!-- Meta tags -->
     <meta charset="utf-8">
@@ -74,6 +76,25 @@ $email = $password= "";
     <link rel="stylesheet" href="user/dash/css/user-custom.css">
     <script src="user/dash/notiflix-aio-3.2.5.min.js"></script>
     <script src="user/js/jquery-3.2.1.min.js"></script>
+    <!-- Smartsupp Live Chat script -->
+    <script type="text/javascript">
+        var _smartsupp = _smartsupp || {};
+        _smartsupp.key = '5211ff884b70b768b71c593f3556fdd0a59b4a30';
+        window.smartsupp || (function(d) {
+            var s, c, o = smartsupp = function() {
+                o._.push(arguments)
+            };
+            o._ = [];
+            s = d.getElementsByTagName('script')[0];
+            c = d.createElement('script');
+            c.type = 'text/javascript';
+            c.charset = 'utf-8';
+            c.async = true;
+            c.src = 'https://www.smartsuppchat.com/loader.js?';
+            s.parentNode.insertBefore(c, s);
+        })(document);
+    </script>
+    <noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
 </head>
 
 <body>
@@ -99,16 +120,16 @@ $email = $password= "";
                                     </a>
                                     <p class="lead mt-1 mb-3">Get your password back</p>
                                     <!-- login form begin -->
-<?php  
-if ($msg != "") {
-	echo userAlert("success", $msg);
-	echo pageRedirect("3", "forgot-password.php");
-}
+                                    <?php
+                                    if ($msg != "") {
+                                        echo userAlert("success", $msg);
+                                        echo pageRedirect("3", "forgot-password.php");
+                                    }
 
-if ($err != "") {
-	echo userAlert("error", $err);
-}
-?>
+                                    if ($err != "") {
+                                        echo userAlert("error", $err);
+                                    }
+                                    ?>
                                     <form class="mb-2" method="POST" action="forgot-password.php">
                                         <div class="row g-1">
                                             <div class="col-12">
@@ -117,7 +138,7 @@ if ($err != "") {
                                                     <span class="input-group-text"><i class="fas fa-envelope fa-xs text-muted"></i></span>
                                                 </div>
                                             </div>
-                                            
+
 
                                             <div class="d-grid">
                                                 <button type="submit" class="btn btn-success" name="login_action">Proceed</button>
@@ -137,8 +158,8 @@ if ($err != "") {
         <!-- section content end -->
     </main>
 
-    
-    
+
+
     <!-- javascript -->
     <script src="../js/vendors/bootstrap.min.js"></script>
     <script src="../js/utilities.min.js"></script>
@@ -149,4 +170,5 @@ if ($err != "") {
 <!-- Mirrored from www.indonez.com/html-demo/Cirro/signin.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Aug 2022 18:41:08 GMT -->
 
 <!-- Mirrored from astromineoptions.com/login by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Dec 2022 00:21:07 GMT -->
+
 </html>

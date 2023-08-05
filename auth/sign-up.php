@@ -10,105 +10,100 @@ $err = $msg = "";
 $fname = $lname = $phone = $email = $password = $gender = $country = "";
 
 
-    if (isset($_POST['reg'])) {
-        if(empty(text_input($_POST["fname"])) && text_input($_POST['fname'] == "")){
-            $err = "Please enter first name.";     
-        }else{
-            $fname = text_input($_POST["fname"]);
-        }
-
-        if(empty(text_input($_POST["lname"])) && text_input($_POST['lname'] == "")){
-            $err = "Please enter last name.";     
-        }else{
-            $lname = text_input($_POST["lname"]);
-        }
-
-        if(empty(text_input($_POST["email"])) && text_input($_POST['email'] == "")){
-            $err = "Please enter an email.";
-          } else{
-              // Prepare a select statement
-              $sql = "SELECT id FROM users WHERE email = ?";
-              
-              if($stmt = mysqli_prepare($link, $sql)){
-                  // Bind variables to the prepared statement as parameters
-                  mysqli_stmt_bind_param($stmt, "s", $param_email);
-                  
-                  // Set parameters
-                  $param_email = trim($_POST["email"]);
-                  
-                  // Attempt to execute the prepared statement
-                  if(mysqli_stmt_execute($stmt)){
-                      /* store result */
-                      mysqli_stmt_store_result($stmt);
-                      
-                      if(mysqli_stmt_num_rows($stmt) == 1){
-                          $err = "This email is already taken.";
-                      } else{
-                          $email = text_input($_POST["email"]);
-                      }
-                  } else{
-                      echo "Oops! Something went wrong. Please try again later.";
-                  }
-              }
-               
-              // Close statement
-              mysqli_stmt_close($stmt);
-          }
-
-          if(empty(text_input($_POST["gender"])) && text_input($_POST['gender'] == "")){
-                $err = "Please pick.";     
-            }else{
-                $gender = text_input($_POST["gender"]);
-            }
-
-        if(empty(text_input($_POST["phone"])) && text_input($_POST['phone'] == "")){
-            $err = "Please enter phone number.";     
-        }else{
-            $phone = text_input($_POST["phone"]);
-        }
-
-        if(empty(text_input($_POST["country"])) && text_input($_POST['country'] == "")){
-            $err = "Please select a country.";     
-          }else{
-              $country = text_input($_POST["country"]);
-          }
-
-          if(empty(text_input($_POST["password"])) && text_input($_POST['password'] == "")){
-            $err = "Please enter a password.";     
-          } elseif(strlen(text_input($_POST["password"])) < 6){
-              $err = "Password must have atleast 6 characters.";
-          } elseif (text_input($_POST['cpassword']) != text_input($_POST['password'])) {
-              $err = "Passwords do not match";
-          } else{
-              $password = text_input($_POST["password"]);
-          }
-
-        if (empty($err)) {
-            $date =  date('d-m-Y');
-            $code = "0123456789";
-            $fa2_code = str_shuffle($code);
-            $fa2_code = substr($fa2_code, 0, 6);
-            $insert = mysqli_query($link, "INSERT INTO users (`fname`, `lname`, `email`, `password`, `phone`, `gender`, `country`, `2fa_code`) VALUES ('$fname', '$lname', '$email', '$password', '$phone', '$gender', '$country', '$fa2_code') ");
-            if ($insert) {
-
-                $_SESSION['2fa_login'] = $email;
-                //send welcome mail
-                $name = $fname." ".$lname;
-                $subject = "Auth OTP";
-                $body = "<h5>Login OTP</h5> <p>Hi ".$fname."</p> <p>A login attempt was made on your account. use the code below to complete sign in.</p> <h5> <strong>".$fa2_code."</strong> </h5> <p>Contact us as soon as possible if you didnt make this attempt.</p> <p>Thanks,</p> <p>".$sitename."</p> ";
-                $send = sendMail($email, $name, $subject, $body);
-                if ($send) {
-                    // echo "<script>window.location.href = '2fa.php' </script>";
-                }
-                echo "<script>window.location.href = '2fa.php' </script>";
-            }
-        }
-
-
-
-
-
+if (isset($_POST['reg'])) {
+    if (empty(text_input($_POST["fname"])) && text_input($_POST['fname'] == "")) {
+        $err = "Please enter first name.";
+    } else {
+        $fname = text_input($_POST["fname"]);
     }
+
+    if (empty(text_input($_POST["lname"])) && text_input($_POST['lname'] == "")) {
+        $err = "Please enter last name.";
+    } else {
+        $lname = text_input($_POST["lname"]);
+    }
+
+    if (empty(text_input($_POST["email"])) && text_input($_POST['email'] == "")) {
+        $err = "Please enter an email.";
+    } else {
+        // Prepare a select statement
+        $sql = "SELECT id FROM users WHERE email = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
+
+            // Set parameters
+            $param_email = trim($_POST["email"]);
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    $err = "This email is already taken.";
+                } else {
+                    $email = text_input($_POST["email"]);
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+
+        // Close statement
+        mysqli_stmt_close($stmt);
+    }
+
+    if (empty(text_input($_POST["gender"])) && text_input($_POST['gender'] == "")) {
+        $err = "Please pick.";
+    } else {
+        $gender = text_input($_POST["gender"]);
+    }
+
+    if (empty(text_input($_POST["phone"])) && text_input($_POST['phone'] == "")) {
+        $err = "Please enter phone number.";
+    } else {
+        $phone = text_input($_POST["phone"]);
+    }
+
+    if (empty(text_input($_POST["country"])) && text_input($_POST['country'] == "")) {
+        $err = "Please select a country.";
+    } else {
+        $country = text_input($_POST["country"]);
+    }
+
+    if (empty(text_input($_POST["password"])) && text_input($_POST['password'] == "")) {
+        $err = "Please enter a password.";
+    } elseif (strlen(text_input($_POST["password"])) < 6) {
+        $err = "Password must have atleast 6 characters.";
+    } elseif (text_input($_POST['cpassword']) != text_input($_POST['password'])) {
+        $err = "Passwords do not match";
+    } else {
+        $password = text_input($_POST["password"]);
+    }
+
+    if (empty($err)) {
+        $date =  date('d-m-Y');
+        $code = "0123456789";
+        $fa2_code = str_shuffle($code);
+        $fa2_code = substr($fa2_code, 0, 6);
+        $insert = mysqli_query($link, "INSERT INTO users (`fname`, `lname`, `email`, `password`, `phone`, `gender`, `country`, `2fa_code`) VALUES ('$fname', '$lname', '$email', '$password', '$phone', '$gender', '$country', '$fa2_code') ");
+        if ($insert) {
+
+            $_SESSION['2fa_login'] = $email;
+            //send welcome mail
+            $name = $fname . " " . $lname;
+            $subject = "Auth OTP";
+            $body = "<h5>Login OTP</h5> <p>Hi " . $fname . "</p> <p>A login attempt was made on your account. use the code below to complete sign in.</p> <h5> <strong>" . $fa2_code . "</strong> </h5> <p>Contact us as soon as possible if you didnt make this attempt.</p> <p>Thanks,</p> <p>" . $sitename . "</p> ";
+            $send = sendMail($email, $name, $subject, $body);
+            if ($send) {
+                // echo "<script>window.location.href = '2fa.php' </script>";
+            }
+            echo "<script>window.location.href = '2fa.php' </script>";
+        }
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -118,7 +113,8 @@ $fname = $lname = $phone = $email = $password = $gender = $country = "";
 <!-- Added by HTTrack -->
 
 <!-- Mirrored from astromineoptions.com/register by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Dec 2022 00:21:05 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
@@ -143,12 +139,30 @@ $fname = $lname = $phone = $email = $password = $gender = $country = "";
     <link rel="stylesheet" href="user/dash/css/user-custom.css">
     <script src="user/dash/notiflix-aio-3.2.5.min.js"></script>
     <script src="user/js/jquery-3.2.1.min.js"></script>
+    <!-- Smartsupp Live Chat script -->
+    <script type="text/javascript">
+        var _smartsupp = _smartsupp || {};
+        _smartsupp.key = '5211ff884b70b768b71c593f3556fdd0a59b4a30';
+        window.smartsupp || (function(d) {
+            var s, c, o = smartsupp = function() {
+                o._.push(arguments)
+            };
+            o._ = [];
+            s = d.getElementsByTagName('script')[0];
+            c = d.createElement('script');
+            c.type = 'text/javascript';
+            c.charset = 'utf-8';
+            c.async = true;
+            c.src = 'https://www.smartsuppchat.com/loader.js?';
+            s.parentNode.insertBefore(c, s);
+        })(document);
+    </script>
+    <noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
 </head>
 
 <body>
     <!-- page loader begin -->
-    <div
-        class="page-loader w-100 h-100 bg-white d-flex justify-content-center align-items-center position-fixed overflow-hidden">
+    <div class="page-loader w-100 h-100 bg-white d-flex justify-content-center align-items-center position-fixed overflow-hidden">
         <div class="spinner-grow spinner-grow-sm text-success"></div>
         <div class="spinner-grow spinner-grow-sm text-success"></div>
         <div class="spinner-grow spinner-grow-sm text-success"></div>
@@ -170,48 +184,40 @@ $fname = $lname = $phone = $email = $password = $gender = $country = "";
                                         <img src="../images/ndx_primary_logo_color%402x.png" alt="logo" height="36" class="d-inline-block">
                                     </a>
                                     <p class="lead mt-1 mb-3">Happy to see you. Sign Up!</p>
-                                    <?php  
-if ($msg != "") {
-	echo userAlert("success", $msg);
-}
+                                    <?php
+                                    if ($msg != "") {
+                                        echo userAlert("success", $msg);
+                                    }
 
-if ($err != "") {
-	echo userAlert("error", $err);
-}
-?>
+                                    if ($err != "") {
+                                        echo userAlert("error", $err);
+                                    }
+                                    ?>
                                     <!-- login form begin -->
                                     <form class="mb-2" method="POST" action="sign-up.php">
                                         <div class="row g-1">
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <input type="text" required="" value="<?php echo $fname ?>" name="fname" class="form-control"
-                                                        placeholder="Firstname" aria-label="Firstname">
-                                                    <span class="input-group-text"><i
-                                                            class="fas fa-user fa-xs text-muted"></i></span>
+                                                    <input type="text" required="" value="<?php echo $fname ?>" name="fname" class="form-control" placeholder="Firstname" aria-label="Firstname">
+                                                    <span class="input-group-text"><i class="fas fa-user fa-xs text-muted"></i></span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <input type="text" required="" value="<?php echo $lname ?>" name="lname" class="form-control"
-                                                        placeholder="Lastname" aria-label="Lastname">
-                                                    <span class="input-group-text"><i
-                                                            class="fas fa-user fa-xs text-muted"></i></span>
+                                                    <input type="text" required="" value="<?php echo $lname ?>" name="lname" class="form-control" placeholder="Lastname" aria-label="Lastname">
+                                                    <span class="input-group-text"><i class="fas fa-user fa-xs text-muted"></i></span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <input type="email" name="email" required="" value="<?php echo $email ?>" class="form-control"
-                                                        placeholder="Email" aria-label="Email">
-                                                    <span class="input-group-text"><i
-                                                            class="fas fa-envelope fa-xs text-muted"></i></span>
+                                                    <input type="email" name="email" required="" value="<?php echo $email ?>" class="form-control" placeholder="Email" aria-label="Email">
+                                                    <span class="input-group-text"><i class="fas fa-envelope fa-xs text-muted"></i></span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <input type="text" name="phone" class="form-control"
-                                                        placeholder="Phone" required="" value="<?php echo $phone ?>" aria-label="Phone">
-                                                    <span class="input-group-text"><i
-                                                            class="fas fa-phone fa-xs text-muted"></i></span>
+                                                    <input type="text" name="phone" class="form-control" placeholder="Phone" required="" value="<?php echo $phone ?>" aria-label="Phone">
+                                                    <span class="input-group-text"><i class="fas fa-phone fa-xs text-muted"></i></span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -500,24 +506,19 @@ if ($err != "") {
                                             </div>
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <input type="password" name="password" class="form-control"
-                                                        placeholder="Password" aria-label="Password">
-                                                    <span class="input-group-text"><i
-                                                            class="fas fa-lock fa-xs text-muted"></i></span>
+                                                    <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password">
+                                                    <span class="input-group-text"><i class="fas fa-lock fa-xs text-muted"></i></span>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <input type="password" name="cpassword"
-                                                        class="form-control" placeholder="Re-type Password"
-                                                        aria-label="Password" required>
-                                                    <span class="input-group-text"><i
-                                                            class="fas fa-lock fa-xs text-muted"></i></span>
+                                                    <input type="password" name="cpassword" class="form-control" placeholder="Re-type Password" aria-label="Password" required>
+                                                    <span class="input-group-text"><i class="fas fa-lock fa-xs text-muted"></i></span>
                                                 </div>
                                             </div>
 
                                             <br><br>
-                                            
+
 
                                             <div class="col-12 text-start">
                                                 <input type="checkbox" required="" name="terms" class="form-check-input" required>
@@ -531,8 +532,7 @@ if ($err != "") {
                                         </div>
                                     </form>
 
-                                    <small class="text-muted">Already have an account? <a href="login.php"
-                                            class="link-success text-decoration-none">Login</a></small>
+                                    <small class="text-muted">Already have an account? <a href="login.php" class="link-success text-decoration-none">Login</a></small>
                                 </div>
                             </div>
                         </div>
@@ -544,8 +544,8 @@ if ($err != "") {
         <!-- section content end -->
     </main>
 
-    
-    
+
+
     <!-- javascript -->
     <script src="../js/vendors/bootstrap.min.js"></script>
     <script src="../js/utilities.min.js"></script>
@@ -557,4 +557,5 @@ if ($err != "") {
 
 
 <!-- Mirrored from astromineoptions.com/register by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Dec 2022 00:21:06 GMT -->
+
 </html>
