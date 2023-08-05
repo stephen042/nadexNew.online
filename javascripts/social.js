@@ -1,0 +1,1 @@
+jQuery(function(){$(".social-click").on("click",function(){var e=$(this),n=e.data("social");google360.sendEvent({event:"social_share",event_category:"social share",event_action:n,event_label:undefined,event_value:undefined,social_network:n})})});

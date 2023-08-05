@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="36px" viewBox="0 0 30 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 57.1 (101010) - https://sketch.com -->
+    <title>2E13025C-4691-41AF-8F01-7D4A4B970012@1x</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <polygon id="path-1" points="0.1074 0.000198814229 20.5244 0.000198814229 20.5244 34.7924901 0.1074 34.7924901"></polygon>
+        <polygon id="path-3" points="0 0.638193676 20.4168 0.638193676 20.4168 35.430485 0 35.430485"></polygon>
+    </defs>
+    <g id="Style-Sheet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="NDX_44_asset-sheet_1" transform="translate(-1264.000000, -150.000000)">
+            <g id="ndx_secondary_logo" transform="translate(1264.000000, 149.000000)">
+                <g id="Group-18" transform="translate(9.000000, 1.349750)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-17"></g>
+                    <path d="M11.4164,0.000198814229 L11.4164,17.2085644 L0.1074,17.2085644 L13.1624,29.1195249 L19.6774,34.6743945 C19.7644,34.7489498 19.8764,34.7926889 19.9984,34.7926889 C20.2834,34.7926889 20.5154,34.5471534 20.5154,34.2449557 L20.5244,0.544949802 C20.5244,0.243746245 20.2934,0.000198814229 20.0084,0.000198814229 L11.4164,0.000198814229 Z" id="Fill-16" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                </g>
+                <g id="Group-21" transform="translate(0.000000, 0.355679)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Clip-20"></g>
+                    <path d="M9.1078,35.430485 L9.1078,18.2221194 L20.4168,18.2221194 L7.3618,6.31115889 L0.8478,0.757283399 C0.7598,0.681733992 0.6478,0.637994862 0.5258,0.637994862 C0.2408,0.637994862 0.0098,0.883530435 0.0098,1.18572806 L-0.0002,34.8847399 C-0.0002,35.1869375 0.2318,35.430485 0.5158,35.430485 L9.1078,35.430485 Z" id="Fill-19" fill="#FFFFFF" opacity="0.400000006" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
