@@ -20,6 +20,10 @@ if (isset($_POST['sub_signal'])) {
         if ($insert) {
             $sub_bal = $sub_balance - $amount;
             $update = mysqli_query($link, "UPDATE `users` SET `sub_balance` = '$sub_bal' WHERE `users`.`email` = '$email' ");
+            $subject = $sitename . " Signal Subscription";
+            $body = "<h4> " . $name . " Signal Subscription </h4> <p> Your Signal Subscription of $ " . $amount . " of " . $account . " has has been submitted, Your signal Subscription will last for " . $duration . "  </p> ";
+            sendMail($email, $name, $subject, $body);
+
             $msg = "Subscription Was successfully done";
         }
     }
@@ -30,7 +34,7 @@ if (isset($_POST['sub_signal'])) {
 
 <div class="content-wrapper bg-dark">
     <?php
-     if ($msg != "") {
+    if ($msg != "") {
         echo "<script>
 	Notiflix.Report.success(
 	  'Request Sent',
@@ -119,16 +123,16 @@ if (isset($_POST['sub_signal'])) {
                                     </p>
                                 </div>
                             </form>
-                        <!-- </div> -->
+                            <!-- </div> -->
+                        </div>
                     </div>
-                </div>
 
-    </div>
-<?php }
+                </div>
+        <?php }
         } ?>
 
 
-</div>
+    </div>
 
 
 </div>

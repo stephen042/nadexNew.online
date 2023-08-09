@@ -42,10 +42,25 @@ if (isset($_POST['placeTrade']) && isset($_POST['amount']) && isset($_POST['unit
             mysqli_query($link, "UPDATE users SET $col = $col - '$amount' WHERE email = '$email' ");
             if ($win_loss == 1) {
                 $col = 'balance';
-                $amount = $amount + $profit;
-                mysqli_query($link, "UPDATE users SET $col = $col + '$amount' WHERE email = '$email' ");
+                $amount1 = $amount + $profit;
+                mysqli_query($link, "UPDATE users SET $col = $col + '$amount1' WHERE email = '$email' ");
             }
         }
+
+        $subject = $sitename . " Your Ai-Trading Order Has been executed";
+		$body = "Your Ai order was executed on: " . $trade_set . ". Here are the details of your matched trade :<br><br>
+		Contract: " . $symbol . " <br> 
+		Expiration: " . $trade_exp . " <br>
+		Direction: " . $direction . " <br>
+		Quantity: " . $units . " <br>
+		Price: " . $amount . " <br><br>
+		Your positions and balance have been updated. <br> <br>
+		if you have any questions please contact customer service at customerservice@nadex.online. <br> <br>
+		Best regards, <br> <br>
+		The ".$sitename." Team <br>
+		Email: " . $sitemail . " <br>
+		website: " . $siteurl.". <br>";
+		sendMail($email, $name, $subject, $body);
 
         $msg = "Trade Successfully Placed!";
     };
@@ -60,7 +75,7 @@ if (isset($_POST['placeTrade']) && isset($_POST['amount']) && isset($_POST['unit
         if ($msg != "") {
 
             echo customAlert("success", $msg);
-            echo ('<script>window.location.reload();</script>');
+            echo ('<script>window.location.href="edit_aitrading.php?email=' . $email . '";</script>');
         }
         if ($err != "") {
             echo customAlert("error", $err);

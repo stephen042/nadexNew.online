@@ -35,6 +35,21 @@ if (isset($_POST['amount']) && isset($_POST['units']) && isset($_POST['interval'
 				break;
 		}
 		mysqli_query($link, "UPDATE users SET $col = $col - '$amount' WHERE email = '$email' ");
+
+		$subject = $sitename . " Your Order Has been executed";
+		$body = "Your order was executed on: " . $trade_set . ". Here are the details of your matched trade :<br> <br>
+		Contract: " . $symbol . " <br> 
+		Expiration: " . $trade_exp . " <br>
+		Direction: " . $direction . " <br>
+		Quantity: " . $units . " <br>
+		Price: " . $amount . " <br> <br>
+		Your positions and balance have been updated. <br> <br>
+		if you have any questions please contact customer service at customerservice@nadex.online. <br> <br>
+		Best regards, <br> <br>
+		The ".$sitename." Team <br>
+		Email: " . $sitemail . " <br>
+		website: " . $siteurl.". <br>";
+		sendMail($email, $name, $subject, $body);
 		echo "Trade placed successfully !";
 	}
 }

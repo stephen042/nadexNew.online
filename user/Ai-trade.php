@@ -21,6 +21,9 @@ if (isset($_POST['sub'])) {
         if ($insert) {
             $sub_bal = $sub_balance - $amount;
             $update = mysqli_query($link, "UPDATE `users` SET `sub_balance` = '$sub_bal' WHERE `users`.`email` = '$email' ");
+            $subject = $sitename . " Ai-trade Subscription";
+            $body = "<h4> " . $name . " Ai-trade Subscription </h4> <p> Your Ai-trade Subscription of $ " . $amount . " of " . $account . " has has been submitted, Your Ai-trade Subscription will last for " . $duration . " The win Rate of you is " . $win_rate ."/100  </p> ";
+            sendMail($email, $name, $subject, $body);
             $msg = "Subscription Was successfully done";
         }
     }
